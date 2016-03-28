@@ -1,17 +1,18 @@
 package com.epam.cdp.jcf.model;
 
+import java.util.Objects;
+
 public class Benchmark {
 
-	String name;
 	String methodName;
-	long executiionTime;
+	long count;
+	long executionTime;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public Benchmark(String methodName, long count, long executiionTime) {
+		super();
+		this.methodName = methodName;
+		this.count = count;
+		this.executionTime = executiionTime;
 	}
 
 	public String getMethodName() {
@@ -22,12 +23,53 @@ public class Benchmark {
 		this.methodName = methodName;
 	}
 
+	public long getCount() {
+		return count;
+	}
+
+	public void setCount(long count) {
+		this.count = count;
+	}
+
 	public long getExecutiionTime() {
-		return executiionTime;
+		return executionTime;
 	}
 
 	public void setExecutiionTime(long executiionTime) {
-		this.executiionTime = executiionTime;
+		this.executionTime = executiionTime;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(methodName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Benchmark other = (Benchmark) obj;
+		if (methodName == null) {
+			if (other.methodName != null) {
+				return false;
+			}
+		} else if (!methodName.equals(other.methodName)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Benchmark [methodName=" + methodName + ", count=" + count
+				+ ", executiionTime=" + executionTime + "]";
 	}
 
 }
