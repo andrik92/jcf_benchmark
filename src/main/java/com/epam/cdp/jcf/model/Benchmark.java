@@ -1,8 +1,6 @@
 package com.epam.cdp.jcf.model;
 
-import java.util.Objects;
-
-public class Benchmark {
+public class Benchmark implements Comparable<Benchmark> {
 
 	String methodName;
 	long count;
@@ -40,36 +38,13 @@ public class Benchmark {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(methodName);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Benchmark other = (Benchmark) obj;
-		if (methodName == null) {
-			if (other.methodName != null) {
-				return false;
-			}
-		} else if (!methodName.equals(other.methodName)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
 	public String toString() {
-		return "Benchmark [methodName=" + methodName + ", count=" + count
-				+ ", executiionTime=" + executionTime + "]";
+		return "Benchmark [methodName=" + methodName + ", count=" + count + ", executiionTime=" + executionTime + "]";
+	}
+
+	@Override
+	public int compareTo(Benchmark benchmark) {
+		return (this.methodName).compareTo(benchmark.methodName);
 	}
 
 }

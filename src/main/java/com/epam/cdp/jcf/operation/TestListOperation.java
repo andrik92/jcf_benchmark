@@ -3,7 +3,7 @@ package com.epam.cdp.jcf.operation;
 import java.util.Collections;
 import java.util.List;
 
-import com.epam.cdp.jcf.dao.impl.ListBenchmarkDaoImpl;
+import com.epam.cdp.jcf.dao.impl.BenchmarkDaoImpl;
 import com.epam.cdp.jcf.model.Benchmark;
 
 public class TestListOperation {
@@ -12,7 +12,7 @@ public class TestListOperation {
 	private String pattern = "Element %d";
 	private String name;
 
-	ListBenchmarkDaoImpl benchmarksList = new ListBenchmarkDaoImpl();
+	BenchmarkDaoImpl benchmarksList = new BenchmarkDaoImpl();
 
 	public void addToEnd(List<String> list) {
 		long startTime = System.nanoTime();
@@ -23,8 +23,7 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("addToEnd", NUM,
-				executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("addToEnd", NUM, executionTime));
 	}
 
 	public void addToTop(List<String> list) {
@@ -36,8 +35,7 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("addToTop", NUM,
-				executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("addToTop", NUM, executionTime));
 	}
 
 	public void addToMiddle(List<String> list) {
@@ -49,8 +47,7 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("addToMiddle", NUM,
-				executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("addToMiddle", NUM, executionTime));
 	}
 
 	public void removeFromTopByIndex(List<String> list) {
@@ -60,8 +57,7 @@ public class TestListOperation {
 		}
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("removeFromTopByIndex",
-				NUM, executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("removeFromTopByIndex", NUM, executionTime));
 	}
 
 	public void removeFromEndByIndex(List<String> list) {
@@ -71,8 +67,7 @@ public class TestListOperation {
 		}
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("removeFromEndByIndex",
-				NUM, executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("removeFromEndByIndex", NUM, executionTime));
 	}
 
 	public void removeFromMiddleByIndex(List<String> list) {
@@ -84,8 +79,7 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark(
-				"removeFromMiddleByIndex", NUM, executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("removeFromMiddleByIndex", NUM, executionTime));
 	}
 
 	public void removeByObject(List<String> list) {
@@ -98,8 +92,7 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("removeByObject", NUM,
-				executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("removeByObject", NUM, executionTime));
 	}
 
 	public void sort(List<String> list) {
@@ -111,8 +104,7 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("sort", NUM,
-				executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("sort", NUM, executionTime));
 	}
 
 	public void getByIndex(List<String> list) {
@@ -124,8 +116,7 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("getByIndex", NUM,
-				executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("getByIndex", NUM, executionTime));
 	}
 
 	public void contains(List<String> list) {
@@ -138,8 +129,7 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("contains", NUM,
-				executionTime));
+		benchmarksList.addBenchmark(name, new Benchmark("contains", NUM, executionTime));
 	}
 
 	public void run(String name, List<String> list) {
@@ -148,13 +138,13 @@ public class TestListOperation {
 		addToEnd(list);
 		removeFromEndByIndex(list);
 		addToMiddle(list);
-		removeFromMiddleByIndex(list);
-		addToTop(list);
-		removeFromTopByIndex(list);
-		addToEnd(list);
-		sort(list);
-		getByIndex(list);
-		contains(list);
-		removeByObject(list);
+//		removeFromMiddleByIndex(list);
+//		addToTop(list);
+//		removeFromTopByIndex(list);
+//		addToEnd(list);
+//		sort(list);
+//		getByIndex(list);
+//		contains(list);
+//		removeByObject(list);
 	}
 }
