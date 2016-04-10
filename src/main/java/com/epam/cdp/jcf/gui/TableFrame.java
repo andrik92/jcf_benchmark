@@ -1,11 +1,9 @@
-package com.epam.cdp.jcf.main;
+package com.epam.cdp.jcf.gui;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -22,55 +20,15 @@ import org.jfree.ui.RefineryUtilities;
 
 import com.epam.cdp.jcf.dao.impl.BenchmarkDaoImpl;
 import com.epam.cdp.jcf.model.Benchmark;
-import com.epam.cdp.jcf.operation.TestListOperation;
 
 public class TableFrame extends ApplicationFrame {
-
+	
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-
-		/**
-		 * RUN TEST TEMP
-		 */
-
-		List<String> list = new ArrayList<String>();
-
-		List<String> listWithInitSize = new ArrayList<String>(5000);
-
-		List<String> linkedList = new LinkedList<String>();
-
-		TestListOperation listTest = new TestListOperation();
-		listTest.run("ArrayList", list);
-		listTest.run("ArrayList with init size", listWithInitSize);
-		listTest.run("LinkedList", linkedList);
-
-		/**
-		 * 
-		 */
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TableFrame frame = new TableFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	TableFrame() {
+	public TableFrame() {
 		super("Benchmark");
 		initComponents();
 	}

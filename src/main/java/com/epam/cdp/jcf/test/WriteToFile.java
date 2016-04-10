@@ -21,9 +21,9 @@ public class WriteToFile {
 		List<String> linkedList = new LinkedList<String>();
 
 		TestListOperation listTest = new TestListOperation();
-		listTest.run("ArrayList", list);
-		listTest.run("ArrayList with init size", listWithInitSize);
-		listTest.run("LinkedList", linkedList);
+//		listTest.run("ArrayList", list);
+//		listTest.run("ArrayList with init size", listWithInitSize);
+//		listTest.run("LinkedList", linkedList);
 
 		System.out.println(BenchmarkDaoImpl.mapBenchmarkResultOfList);
 
