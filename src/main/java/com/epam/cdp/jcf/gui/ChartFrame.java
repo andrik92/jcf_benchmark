@@ -32,8 +32,8 @@ public class ChartFrame extends JFrame {
 	private static CategoryDataset createDataset() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		for (String collectionName : BenchmarkDaoImpl.mapBenchmarkResultOfList.keySet()) {
-			for (Benchmark benchmark : BenchmarkDaoImpl.mapBenchmarkResultOfList.get(collectionName)) {
+		for (String collectionName : BenchmarkDaoImpl.benchmarkResults.keySet()) {
+			for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults.get(collectionName)) {
 				dataset.addValue(benchmark.getExecutiionTime(), collectionName, benchmark.getMethodName());
 			}
 		}

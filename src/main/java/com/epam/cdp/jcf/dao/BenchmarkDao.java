@@ -5,5 +5,5 @@ import com.epam.cdp.jcf.model.Benchmark;
 public interface BenchmarkDao {
 
 	public void addBenchmark(String keyCollectionType, Benchmark benchmark);
-//	public List<Benchmark> getAllBenchmarksByCollection(String keyCollectionType);
+	public void addMemoryUsageResult(String keyCollectionType, Long size);
 }

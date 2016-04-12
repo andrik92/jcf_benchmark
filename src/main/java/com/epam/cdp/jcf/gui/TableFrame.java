@@ -24,7 +24,9 @@ import com.epam.cdp.jcf.model.Benchmark;
 public class TableFrame extends ApplicationFrame {
 	
 	private static final long serialVersionUID = 1L;
-
+	private static final double M = 1000000D;
+	private static final int K = 1024;
+	
 	private JPanel contentPane;
 	private JTable table;
 
@@ -78,28 +80,30 @@ public class TableFrame extends ApplicationFrame {
 	}
 
 	private DefaultTableModel initModel() {
-		List<String> methodNameList = new ArrayList<>();
+		List<String> methodNameList = new ArrayList<String>();
 
 		methodNameList.add("");
 
-		for (Benchmark benchmark : BenchmarkDaoImpl.mapBenchmarkResultOfList
-				.get(BenchmarkDaoImpl.mapBenchmarkResultOfList.keySet().first())) {
+		for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults.get(BenchmarkDaoImpl.benchmarkResults.keySet().first())) {
 			methodNameList.add(benchmark.getMethodName());
 		}
+		
+		methodNameList.add("memory size");
 
-		int row = BenchmarkDaoImpl.mapBenchmarkResultOfList.keySet().size();
+		int row = BenchmarkDaoImpl.benchmarkResults.keySet().size();
 		int column = methodNameList.size();
 
 		String[][] resultSet = new String[row][column];
 
 		row = 0;
-		for (String collectionName : BenchmarkDaoImpl.mapBenchmarkResultOfList.keySet()) {
+		for (String collectionName : BenchmarkDaoImpl.benchmarkResults.keySet()) {
 			column = 0;
 			resultSet[row][column] = collectionName;
-			for (Benchmark benchmark : BenchmarkDaoImpl.mapBenchmarkResultOfList.get(collectionName)) {
+			for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults.get(collectionName)) {
 				column++;
-				resultSet[row][column] = String.valueOf(benchmark.getExecutiionTime());
+				resultSet[row][column] = String.format("%.2f", benchmark.getExecutiionTime()/M) + " ms";	
 			}
+			resultSet[row][++column] = String.valueOf(BenchmarkDaoImpl.memoryUsage.get(collectionName)/K) + " Kb";
 			row++;
 		}
 

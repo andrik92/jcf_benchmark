@@ -25,7 +25,7 @@ public class WriteToFile {
 //		listTest.run("ArrayList with init size", listWithInitSize);
 //		listTest.run("LinkedList", linkedList);
 
-		System.out.println(BenchmarkDaoImpl.mapBenchmarkResultOfList);
+		System.out.println(BenchmarkDaoImpl.benchmarkResults);
 
 		try {
 
@@ -43,10 +43,10 @@ public class WriteToFile {
 
 			// writing
 
-			for (String key: BenchmarkDaoImpl.mapBenchmarkResultOfList.keySet()) {
+			for (String key: BenchmarkDaoImpl.benchmarkResults.keySet()) {
 				bw.write(key);
 				bw.newLine();
-				bw.write(BenchmarkDaoImpl.mapBenchmarkResultOfList.toString());
+				bw.write(BenchmarkDaoImpl.benchmarkResults.toString());
 				bw.newLine();
 			}
 			bw.close();

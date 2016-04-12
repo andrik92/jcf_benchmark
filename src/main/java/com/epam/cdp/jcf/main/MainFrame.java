@@ -80,9 +80,10 @@ public class MainFrame extends JFrame {
 
 					TestListOperation listTest = new TestListOperation();
 
+					listTest.run("LinkedList", linkedList, numberOfItems);
 					listTest.run("ArrayList", list, numberOfItems);
 					listTest.run("ArrayList with init size", listWithInitSize, numberOfItems);
-					listTest.run("LinkedList", linkedList, numberOfItems);
+					
 
 					TableFrame frame = new TableFrame();
 					frame.setVisible(true);

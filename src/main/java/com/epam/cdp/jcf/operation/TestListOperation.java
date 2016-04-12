@@ -12,9 +12,10 @@ public class TestListOperation {
 	private int num;
 	private String name;
 
-	BenchmarkDaoImpl benchmarksList = new BenchmarkDaoImpl();
+	BenchmarkDaoImpl benchmarkDao = new BenchmarkDaoImpl();
 
 	public void addToEnd(List<String> list) {
+		long freeMemoryBefore = Runtime.getRuntime().freeMemory();
 		long startTime = System.nanoTime();
 
 		for (int i = 0; i < num; i++) {
@@ -22,8 +23,10 @@ public class TestListOperation {
 		}
 
 		long executionTime = System.nanoTime() - startTime;
-
-		benchmarksList.addBenchmark(name, new Benchmark("addToEnd", num, executionTime));
+		long freeMemoryAfter = Runtime.getRuntime().freeMemory();
+		
+		benchmarkDao.addBenchmark(name, new Benchmark("addToEnd", num, executionTime));
+		benchmarkDao.addMemoryUsageResult(name, freeMemoryBefore - freeMemoryAfter);
 	}
 
 	public void addToTop(List<String> list) {
@@ -35,7 +38,8 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("addToTop", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark("addToTop", num,
+				executionTime));
 	}
 
 	public void addToMiddle(List<String> list) {
@@ -47,7 +51,8 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("addToMiddle", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark("addToMiddle", num,
+				executionTime));
 	}
 
 	public void removeFromTopByIndex(List<String> list) {
@@ -57,7 +62,8 @@ public class TestListOperation {
 		}
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("removeFromTopByIndex", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark("removeFromTopByIndex",
+				num, executionTime));
 	}
 
 	public void removeFromEndByIndex(List<String> list) {
@@ -67,7 +73,8 @@ public class TestListOperation {
 		}
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("removeFromEndByIndex", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark("removeFromEndByIndex",
+				num, executionTime));
 	}
 
 	public void removeFromMiddleByIndex(List<String> list) {
@@ -79,7 +86,8 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("removeFromMiddleByIndex", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark(
+				"removeFromMiddleByIndex", num, executionTime));
 	}
 
 	public void removeByObject(List<String> list) {
@@ -92,7 +100,8 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("removeByObject", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark("removeByObject", num,
+				executionTime));
 	}
 
 	public void sort(List<String> list) {
@@ -104,7 +113,8 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("sort", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark("sort", num,
+				executionTime));
 	}
 
 	public void getByIndex(List<String> list) {
@@ -116,7 +126,8 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("getByIndex", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark("getByIndex", num,
+				executionTime));
 	}
 
 	public void contains(List<String> list) {
@@ -129,7 +140,8 @@ public class TestListOperation {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		benchmarksList.addBenchmark(name, new Benchmark("contains", num, executionTime));
+		benchmarkDao.addBenchmark(name, new Benchmark("contains", num,
+				executionTime));
 	}
 
 	public void run(String name, List<String> list, int numberOfItems) {
