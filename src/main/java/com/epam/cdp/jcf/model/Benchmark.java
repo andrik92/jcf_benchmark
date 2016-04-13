@@ -2,9 +2,10 @@ package com.epam.cdp.jcf.model;
 
 public class Benchmark implements Comparable<Benchmark> {
 
-	String methodName;
-	long count;
-	long executionTime;
+	private String methodName;
+	private long count;
+	private long runs;
+	private long executionTime;
 
 	public Benchmark(String methodName, long count, long executiionTime) {
 		super();
@@ -27,14 +28,22 @@ public class Benchmark implements Comparable<Benchmark> {
 
 	public void setCount(long count) {
 		this.count = count;
+	}	
+	
+	public long getRuns() {
+		return runs;
 	}
 
-	public long getExecutiionTime() {
+	public void setRuns(long runs) {
+		this.runs = runs;
+	}
+
+	public long getExecutionTime() {
 		return executionTime;
 	}
 
-	public void setExecutiionTime(long executiionTime) {
-		this.executionTime = executiionTime;
+	public void setExecutionTime(long executionTime) {
+		this.executionTime = executionTime;
 	}
 
 	@Override

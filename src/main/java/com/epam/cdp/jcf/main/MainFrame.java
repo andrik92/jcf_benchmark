@@ -23,11 +23,12 @@ import javax.swing.event.DocumentListener;
 
 import com.epam.cdp.jcf.enumeration.CollectionType;
 import com.epam.cdp.jcf.gui.TableFrame;
-import com.epam.cdp.jcf.operation.TestListOperation;
+import com.epam.cdp.jcf.service.ListBenchmarkService;
 
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static final int RUNS = 20;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JButton btnButton;
@@ -74,16 +75,9 @@ public class MainFrame extends JFrame {
 
 				if (comboBox.getSelectedItem() == CollectionType.LIST) {
 
-					List<String> list = new ArrayList<String>();
-					List<String> listWithInitSize = new ArrayList<String>(numberOfItems);
-					List<String> linkedList = new LinkedList<String>();
-
-					TestListOperation listTest = new TestListOperation();
-
-					listTest.run("LinkedList", linkedList, numberOfItems);
-					listTest.run("ArrayList", list, numberOfItems);
-					listTest.run("ArrayList with init size", listWithInitSize, numberOfItems);
-					
+					ListBenchmarkService.runBenchmarkTest(numberOfItems);
+//					ListBenchmarkService lbs = new ListBenchmarkService();
+//					lbs.runBenchmarkTest(numberOfItems);
 
 					TableFrame frame = new TableFrame();
 					frame.setVisible(true);
@@ -104,6 +98,7 @@ public class MainFrame extends JFrame {
 		textField = new JTextField();
 
 		textField.getDocument().addDocumentListener(new DocumentListener() {
+			
 			public void changedUpdate(DocumentEvent e) {
 				verify();
 			}

@@ -101,7 +101,7 @@ public class TableFrame extends ApplicationFrame {
 			resultSet[row][column] = collectionName;
 			for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults.get(collectionName)) {
 				column++;
-				resultSet[row][column] = String.format("%.2f", benchmark.getExecutiionTime()/M) + " ms";	
+				resultSet[row][column] = String.format("%.2f", benchmark.getExecutionTime()/M) + " ms";	
 			}
 			resultSet[row][++column] = String.valueOf(BenchmarkDaoImpl.memoryUsage.get(collectionName)/K) + " Kb";
 			row++;

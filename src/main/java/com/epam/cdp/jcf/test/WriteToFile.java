@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.epam.cdp.jcf.dao.impl.BenchmarkDaoImpl;
-import com.epam.cdp.jcf.operation.TestListOperation;
+import com.epam.cdp.jcf.service.ListBenchmarkService;
 
 public class WriteToFile {
 	public static void main(String[] args) {
@@ -20,7 +20,7 @@ public class WriteToFile {
 
 		List<String> linkedList = new LinkedList<String>();
 
-		TestListOperation listTest = new TestListOperation();
+		ListBenchmarkService listTest = new ListBenchmarkService();
 //		listTest.run("ArrayList", list);
 //		listTest.run("ArrayList with init size", listWithInitSize);
 //		listTest.run("LinkedList", linkedList);

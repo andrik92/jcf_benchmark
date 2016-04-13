@@ -34,7 +34,7 @@ public class ChartFrame extends JFrame {
 
 		for (String collectionName : BenchmarkDaoImpl.benchmarkResults.keySet()) {
 			for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults.get(collectionName)) {
-				dataset.addValue(benchmark.getExecutiionTime(), collectionName, benchmark.getMethodName());
+				dataset.addValue(benchmark.getExecutionTime(), collectionName, benchmark.getMethodName());
 			}
 		}
 
