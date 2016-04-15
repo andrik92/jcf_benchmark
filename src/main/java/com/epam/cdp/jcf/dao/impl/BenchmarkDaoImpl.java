@@ -14,11 +14,19 @@ public class BenchmarkDaoImpl implements BenchmarkDao {
 
 	@Override
 	public void addBenchmark(String keyCollectionType, Benchmark benchmark) {
+//		benchmarkResults.get(keyCollectionType).
+		
 		benchmarkResults.put(keyCollectionType, benchmark);
 	}
 
 	@Override
 	public void addMemoryUsageResult(String keyCollectionType, Long size) {
+		
+		if (memoryUsage.containsKey(keyCollectionType)){
+			size += memoryUsage.get(keyCollectionType);
+			size/=2;
+		}		
+		
 		memoryUsage.put(keyCollectionType, size);
 	}
 }

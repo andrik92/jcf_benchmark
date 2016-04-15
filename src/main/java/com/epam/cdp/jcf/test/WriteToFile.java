@@ -1,35 +1,24 @@
 package com.epam.cdp.jcf.test;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.epam.cdp.jcf.dao.impl.BenchmarkDaoImpl;
+import com.epam.cdp.jcf.model.Benchmark;
 import com.epam.cdp.jcf.service.ListBenchmarkService;
 
 public class WriteToFile {
 	public static void main(String[] args) {
 
-		List<String> list = new ArrayList<String>();
-
-		List<String> listWithInitSize = new ArrayList<String>(5000);
-
-		List<String> linkedList = new LinkedList<String>();
-
-		ListBenchmarkService listTest = new ListBenchmarkService();
-//		listTest.run("ArrayList", list);
-//		listTest.run("ArrayList with init size", listWithInitSize);
-//		listTest.run("LinkedList", linkedList);
-
-		System.out.println(BenchmarkDaoImpl.benchmarkResults);
+		ListBenchmarkService.runBenchmarkTest(100);
 
 		try {
 
-			String content = "This is the content to write into file";
+//			String content = "This is the content to write into file";
 
 			File file = new File("src/main/resources/benchmark.txt");
 
@@ -39,18 +28,74 @@ public class WriteToFile {
 			}
 
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-
+//			BufferedWriter bw = new BufferedWriter(fw);
+/*
+			PrintWriter bw = new PrintWriter(fw);
+			
 			// writing
 
-			for (String key: BenchmarkDaoImpl.benchmarkResults.keySet()) {
-				bw.write(key);
-				bw.newLine();
-				bw.write(BenchmarkDaoImpl.benchmarkResults.toString());
-				bw.newLine();
+			bw.write(String.format("%-15s", " "));
+			List<String> methodNameList = new ArrayList<String>();
+			methodNameList.add("");
+
+			for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults
+					.get(BenchmarkDaoImpl.benchmarkResults.keySet().first())) {
+				methodNameList.add(benchmark.getMethodName());
 			}
+			methodNameList.add("memory size");
+
+			for (String str : methodNameList) {
+				bw.write(String.format("%-30s", str));
+			}
+
+			for (String collectionName : BenchmarkDaoImpl.benchmarkResults.keySet()) {
+				bw.newLine();
+				bw.write(String.format("%-30s", collectionName));
+				for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults.get(collectionName)) {
+					bw.write(String.format("%-30s", benchmark.getExecutionTime() / 1000000) + " ms");
+				}
+				bw.write(String.format("%-30s",
+						String.valueOf(BenchmarkDaoImpl.memoryUsage.get(collectionName) / 1024) + " Kb"));
+			}
+
 			bw.close();
 
+			*/
+	
+			
+			PrintWriter pw = new PrintWriter(fw);
+			
+			// writing
+
+//			pw.printf("%-15s", " ");
+			List<String> methodNameList = new ArrayList<String>();
+			methodNameList.add("Type");
+
+			for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults
+					.get(BenchmarkDaoImpl.benchmarkResults.keySet().first())) {
+				methodNameList.add(benchmark.getMethodName());
+			}
+			methodNameList.add("memory size");
+
+			for (String str : methodNameList) {
+				pw.printf("  %-30s", str);
+			}
+
+			
+			for (String collectionName : BenchmarkDaoImpl.benchmarkResults.keySet()) {
+				pw.println();
+				pw.printf("%-30s", collectionName);
+				for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults.get(collectionName)) {
+					pw.printf("| %-30s", benchmark.getExecutionTime() / 1000000 + " ms");
+				}
+				pw.printf("| %-30s",
+						String.valueOf(BenchmarkDaoImpl.memoryUsage.get(collectionName) / 1024) + " Kb");
+			}
+
+			pw.close();
+
+			
+			
 			System.out.println("Done");
 
 		} catch (IOException e) {

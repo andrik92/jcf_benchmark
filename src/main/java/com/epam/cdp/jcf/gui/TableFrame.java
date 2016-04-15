@@ -37,7 +37,7 @@ public class TableFrame extends ApplicationFrame {
 
 	private void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 861, 450);
+		setBounds(100, 100, 1300, 437);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -53,11 +53,11 @@ public class TableFrame extends ApplicationFrame {
 			}
 		});
 
-		btnNewButton.setBounds(694, 354, 126, 33);
+		btnNewButton.setBounds(1148, 354, 126, 33);
 		contentPane.add(btnNewButton);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 825, 332);
+		scrollPane.setBounds(10, 11, 1264, 332);
 		contentPane.add(scrollPane);
 
 		table = new JTable() {
@@ -101,7 +101,7 @@ public class TableFrame extends ApplicationFrame {
 			resultSet[row][column] = collectionName;
 			for (Benchmark benchmark : BenchmarkDaoImpl.benchmarkResults.get(collectionName)) {
 				column++;
-				resultSet[row][column] = String.format("%.2f", benchmark.getExecutionTime()/M) + " ms";	
+				resultSet[row][column] = String.format("%.3f", benchmark.getExecutionTime()/M) + " ms";	
 			}
 			resultSet[row][++column] = String.valueOf(BenchmarkDaoImpl.memoryUsage.get(collectionName)/K) + " Kb";
 			row++;

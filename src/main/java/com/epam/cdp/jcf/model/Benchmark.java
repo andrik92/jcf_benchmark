@@ -7,10 +7,11 @@ public class Benchmark implements Comparable<Benchmark> {
 	private long runs;
 	private long executionTime;
 
-	public Benchmark(String methodName, long count, long executiionTime) {
+	public Benchmark(String methodName, long count, long runs, long executiionTime) {
 		super();
 		this.methodName = methodName;
 		this.count = count;
+		this.runs = runs;
 		this.executionTime = executiionTime;
 	}
 
