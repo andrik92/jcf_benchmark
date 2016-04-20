@@ -5,9 +5,6 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -28,7 +25,6 @@ import com.epam.cdp.jcf.service.ListBenchmarkService;
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final int RUNS = 20;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JButton btnButton;
@@ -75,9 +71,8 @@ public class MainFrame extends JFrame {
 
 				if (comboBox.getSelectedItem() == CollectionType.LIST) {
 
-					ListBenchmarkService.runBenchmarkTest(numberOfItems);
-//					ListBenchmarkService lbs = new ListBenchmarkService();
-//					lbs.runBenchmarkTest(numberOfItems);
+					ListBenchmarkService lbs = new ListBenchmarkService();
+					lbs.runBenchmarkTest(numberOfItems);
 
 					TableFrame frame = new TableFrame();
 					frame.setVisible(true);

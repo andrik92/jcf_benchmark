@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
+import java.util.Vector;
 
 import com.epam.cdp.jcf.dao.impl.BenchmarkDaoImpl;
 import com.epam.cdp.jcf.model.Benchmark;
@@ -13,10 +15,10 @@ import com.epam.cdp.jcf.model.Benchmark;
 public class ListBenchmarkService {
 
 	private final String pattern = "Element %d";
-	private final int runs = 30;
+	private final int RUNS = 30;
 	private int num;
-	private String name;
-	private Map<String, Long> rezultMap;
+	private Map<String, Long> rezultTotalMap;
+	private long rezultTotalMemoryUsage;
 
 	BenchmarkDaoImpl benchmarkDao = new BenchmarkDaoImpl();
 
@@ -31,11 +33,9 @@ public class ListBenchmarkService {
 		long executionTime = System.nanoTime() - startTime;
 		long memorySize = freeMemoryBefore - Runtime.getRuntime().freeMemory();
 
-		// benchmarkDao.addBenchmark(name, new Benchmark("addToEnd", num,
-		// executionTime));
-		updateRezultMap("addToEnd", executionTime);
+		updateRezultTotalMap("addToEnd", executionTime);
 
-		benchmarkDao.addMemoryUsageResult(name, memorySize);
+		rezultTotalMemoryUsage += memorySize;
 	}
 
 	private void addToTop(List<String> list) {
@@ -47,9 +47,7 @@ public class ListBenchmarkService {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		// benchmarkDao.addBenchmark(name, new Benchmark("addToTop", num,
-		// executionTime));
-		updateRezultMap("addToTop", executionTime);
+		updateRezultTotalMap("addToTop", executionTime);
 	}
 
 	private void addToMiddle(List<String> list) {
@@ -61,9 +59,7 @@ public class ListBenchmarkService {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		updateRezultMap("addToMiddle", executionTime);
-		// benchmarkDao.addBenchmark(name, new Benchmark("addToMiddle", num,
-		// executionTime));
+		updateRezultTotalMap("addToMiddle", executionTime);
 	}
 
 	private void removeFromTopByIndex(List<String> list) {
@@ -73,9 +69,7 @@ public class ListBenchmarkService {
 		}
 		long executionTime = System.nanoTime() - startTime;
 
-		updateRezultMap("removeFromTopByIndex", executionTime);
-		// benchmarkDao.addBenchmark(name, new Benchmark("removeFromTopByIndex",
-		// num, executionTime));
+		updateRezultTotalMap("removeFromTopByIndex", executionTime);
 	}
 
 	private void removeFromEndByIndex(List<String> list) {
@@ -85,9 +79,7 @@ public class ListBenchmarkService {
 		}
 		long executionTime = System.nanoTime() - startTime;
 
-		updateRezultMap("removeFromEndByIndex", executionTime);
-		// benchmarkDao.addBenchmark(name, new Benchmark("removeFromEndByIndex",
-		// num, executionTime));
+		updateRezultTotalMap("removeFromEndByIndex", executionTime);
 	}
 
 	private void removeFromMiddleByIndex(List<String> list) {
@@ -99,9 +91,7 @@ public class ListBenchmarkService {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		updateRezultMap("removeFromMiddleByIndex", executionTime);
-		// benchmarkDao.addBenchmark(name, new
-		// Benchmark("removeFromMiddleByIndex", num, executionTime));
+		updateRezultTotalMap("removeFromMiddleByIndex", executionTime);
 	}
 
 	private void removeByObject(List<String> list) {
@@ -114,9 +104,7 @@ public class ListBenchmarkService {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		updateRezultMap("removeByObject", executionTime);
-		// benchmarkDao.addBenchmark(name, new Benchmark("removeByObject", num,
-		// executionTime));
+		updateRezultTotalMap("removeByObject", executionTime);
 	}
 
 	private void sort(List<String> list) {
@@ -128,9 +116,7 @@ public class ListBenchmarkService {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		updateRezultMap("sort", executionTime);
-		// benchmarkDao.addBenchmark(name, new Benchmark("sort", num,
-		// executionTime));
+		updateRezultTotalMap("sort", executionTime);
 	}
 
 	private void getByIndex(List<String> list) {
@@ -142,45 +128,43 @@ public class ListBenchmarkService {
 
 		long executionTime = System.nanoTime() - startTime;
 
-		updateRezultMap("getByIndex", executionTime);
-		// benchmarkDao.addBenchmark(name, new Benchmark("getByIndex", num,
-		// executionTime));
+		updateRezultTotalMap("getByIndex", executionTime);
 	}
 
 	private void contains(List<String> list) {
 		Collections.shuffle(list);
 		long startTime = System.nanoTime();
 
-		for (int i = 0; i < num; i++) {
-			list.contains(String.format(pattern, i));
-		}
+		list.contains(String.format(pattern, 0));
 
 		long executionTime = System.nanoTime() - startTime;
 
-		updateRezultMap("contains", executionTime);
-		// benchmarkDao.addBenchmark(name, new Benchmark("contains", num,
-		// executionTime));
+		updateRezultTotalMap("contains", executionTime);
 	}
 
-	public static void runBenchmarkTest(int numberOfItems) {
-		List<String> list = new ArrayList<String>();
-		List<String> listWithInitSize = new ArrayList<String>(numberOfItems);
+	public void runBenchmarkTest(int numberOfItems) {
+		List<String> arrayList = new ArrayList<String>();
+		List<String> arrayListWithInitSize = new ArrayList<String>(numberOfItems);
 		List<String> linkedList = new LinkedList<String>();
+		List<String> vector = new Vector<String>();
+		List<String> vectorWithInitSize = new Vector<String>(numberOfItems);
+		List<String> stack = new Stack<String>();
 
-		ListBenchmarkService listTest = new ListBenchmarkService();
-
-		listTest.runTest("ArrayList", list, numberOfItems);
-		listTest.runTest("ArrayList with init size", listWithInitSize, numberOfItems);
-		listTest.runTest("LinkedList", linkedList, numberOfItems);
+		runTest("ArrayList", arrayList, numberOfItems);
+		runTest("ArrayList with init size", arrayListWithInitSize, numberOfItems);
+		runTest("LinkedList", linkedList, numberOfItems);
+		runTest("Vektor", vector, numberOfItems);
+		runTest("Vektor with init size", vectorWithInitSize, numberOfItems);
+		runTest("Stack", stack, numberOfItems);
 	}
 
 	private void runTest(String name, List<String> list, int numberOfItems) {
-		this.name = name;
 		this.num = numberOfItems;
 
-		rezultMap = new HashMap<String, Long>();
+		rezultTotalMap = new HashMap<String, Long>();
+		rezultTotalMemoryUsage = 0;
 
-		for (int i = 0; i < runs; i++) {
+		for (int i = 0; i < RUNS; i++) {
 			addToEnd(list);
 			removeFromEndByIndex(list);
 			addToMiddle(list);
@@ -193,18 +177,20 @@ public class ListBenchmarkService {
 			contains(list);
 			removeByObject(list);
 		}
-		
-		for(Map.Entry<String, Long> entry: rezultMap.entrySet()){
-			 benchmarkDao.addBenchmark(name, new Benchmark(entry.getKey(), num, runs,entry.getValue()));		
+
+		for (Map.Entry<String, Long> entry : rezultTotalMap.entrySet()) {
+			benchmarkDao.addBenchmark(name, new Benchmark(entry.getKey(), num,
+					RUNS, entry.getValue() / RUNS));
 		}
 		
+		benchmarkDao.addMemoryUsageResult(name, rezultTotalMemoryUsage / RUNS);
+
 	}
 
-	private void updateRezultMap(String methodName, long executionTime) {
-		if (rezultMap.containsKey(methodName)) {
-			executionTime += rezultMap.get(methodName);
-			executionTime /= 2;
+	private void updateRezultTotalMap(String methodName, long executionTime) {
+		if (rezultTotalMap.containsKey(methodName)) {
+			executionTime += rezultTotalMap.get(methodName);
 		}
-		rezultMap.put(methodName, executionTime);
+		rezultTotalMap.put(methodName, executionTime);
 	}
 }

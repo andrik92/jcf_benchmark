@@ -13,7 +13,8 @@ public class MKYJson {
 
 	public static void main(String[] args) {
 
-		ListBenchmarkService.runBenchmarkTest(100);
+		ListBenchmarkService lbs = new ListBenchmarkService();
+		lbs.runBenchmarkTest(1000);
 
 		JSONObject objCollection = new JSONObject();
 

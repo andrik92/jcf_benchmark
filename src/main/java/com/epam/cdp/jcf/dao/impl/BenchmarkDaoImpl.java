@@ -13,20 +13,12 @@ public class BenchmarkDaoImpl implements BenchmarkDao {
 	public static Map<String, Long> memoryUsage = new TreeMap<String, Long>();
 
 	@Override
-	public void addBenchmark(String keyCollectionType, Benchmark benchmark) {
-//		benchmarkResults.get(keyCollectionType).
-		
+	public void addBenchmark(String keyCollectionType, Benchmark benchmark) {	
 		benchmarkResults.put(keyCollectionType, benchmark);
 	}
 
 	@Override
-	public void addMemoryUsageResult(String keyCollectionType, Long size) {
-		
-		if (memoryUsage.containsKey(keyCollectionType)){
-			size += memoryUsage.get(keyCollectionType);
-			size/=2;
-		}		
-		
+	public void addMemoryUsageResult(String keyCollectionType, Long size) {	
 		memoryUsage.put(keyCollectionType, size);
 	}
 }

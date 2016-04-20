@@ -5,7 +5,8 @@ import com.epam.cdp.jcf.service.ListBenchmarkService;
 
 public class MainConsole {
 	public static void main(String[] args) {
-		ListBenchmarkService.runBenchmarkTest(10000);
+		ListBenchmarkService lbs = new ListBenchmarkService();
+		lbs.runBenchmarkTest(1000);
 		
 		System.out.println(BenchmarkDaoImpl.benchmarkResults.toString());
 	}
