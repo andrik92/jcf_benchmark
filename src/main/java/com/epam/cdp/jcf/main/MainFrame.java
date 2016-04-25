@@ -21,6 +21,7 @@ import javax.swing.event.DocumentListener;
 import com.epam.cdp.jcf.enumeration.CollectionType;
 import com.epam.cdp.jcf.gui.TableFrame;
 import com.epam.cdp.jcf.service.ListBenchmarkService;
+import com.epam.cdp.jcf.service.QueueBenchmarkService;
 
 public class MainFrame extends JFrame {
 
@@ -68,18 +69,24 @@ public class MainFrame extends JFrame {
 		btnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				numberOfItems = Integer.parseInt(textField.getText());
-
-				if (comboBox.getSelectedItem() == CollectionType.LIST) {
-
+				Object selectedItem = comboBox.getSelectedItem();
+				
+				if (selectedItem.equals(CollectionType.LIST)) {
 					ListBenchmarkService lbs = new ListBenchmarkService();
 					lbs.runBenchmarkTest(numberOfItems);
-
-					TableFrame frame = new TableFrame();
-					frame.setVisible(true);
-
-					dispose();
-
+				}else if (selectedItem.equals(CollectionType.SET)) {
+					
+				}else if (selectedItem.equals(CollectionType.QUEUE)) {
+					QueueBenchmarkService qbs = new QueueBenchmarkService();
+					qbs.runBenchmarkTest(numberOfItems);
+				}else if (selectedItem.equals(CollectionType.MAP)) {
+					
 				}
+				
+				TableFrame frame = new TableFrame();
+				frame.setVisible(true);
+
+				dispose();
 			}
 		});
 		btnButton.setBounds(143, 207, 135, 23);
