@@ -21,7 +21,9 @@ import javax.swing.event.DocumentListener;
 import com.epam.cdp.jcf.enumeration.CollectionType;
 import com.epam.cdp.jcf.gui.TableFrame;
 import com.epam.cdp.jcf.service.ListBenchmarkService;
+import com.epam.cdp.jcf.service.MapBenchmarkService;
 import com.epam.cdp.jcf.service.QueueBenchmarkService;
+import com.epam.cdp.jcf.service.SetBenchmarkService;
 
 public class MainFrame extends JFrame {
 
@@ -70,19 +72,21 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				numberOfItems = Integer.parseInt(textField.getText());
 				Object selectedItem = comboBox.getSelectedItem();
-				
+
 				if (selectedItem.equals(CollectionType.LIST)) {
 					ListBenchmarkService lbs = new ListBenchmarkService();
 					lbs.runBenchmarkTest(numberOfItems);
-				}else if (selectedItem.equals(CollectionType.SET)) {
-					
-				}else if (selectedItem.equals(CollectionType.QUEUE)) {
+				} else if (selectedItem.equals(CollectionType.SET)) {
+					SetBenchmarkService sbs = new SetBenchmarkService();
+					sbs.runBenchmarkTest(numberOfItems);
+				} else if (selectedItem.equals(CollectionType.QUEUE)) {
 					QueueBenchmarkService qbs = new QueueBenchmarkService();
 					qbs.runBenchmarkTest(numberOfItems);
-				}else if (selectedItem.equals(CollectionType.MAP)) {
-					
+				} else if (selectedItem.equals(CollectionType.MAP)) {
+					MapBenchmarkService mbs = new MapBenchmarkService();
+					mbs.runBenchmarkTest(numberOfItems);
 				}
-				
+
 				TableFrame frame = new TableFrame();
 				frame.setVisible(true);
 
@@ -100,7 +104,7 @@ public class MainFrame extends JFrame {
 		textField = new JTextField();
 
 		textField.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			public void changedUpdate(DocumentEvent e) {
 				verify();
 			}

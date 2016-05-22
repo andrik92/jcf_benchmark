@@ -10,6 +10,7 @@ import java.util.Stack;
 import java.util.Vector;
 
 import com.epam.cdp.jcf.model.Benchmark;
+import com.google.common.collect.Lists;
 
 public class ListBenchmarkService extends CollectionBenchmarkService {
 
@@ -98,13 +99,17 @@ public class ListBenchmarkService extends CollectionBenchmarkService {
 		List<String> vector = new Vector<String>();
 		List<String> vectorWithInitSize = new Vector<String>(numberOfItems);
 		List<String> stack = new Stack<String>();
-
+		List<String> guavaArrayList = Lists.newArrayList();
+		List<String> guavaLinkedList = Lists.newLinkedList();
+		
 		runTest("ArrayList", arrayList, numberOfItems);
 		runTest("ArrayList with init size", arrayListWithInitSize, numberOfItems);
 		runTest("LinkedList", linkedList, numberOfItems);
 		runTest("Vektor", vector, numberOfItems);
 		runTest("Vektor with init size", vectorWithInitSize, numberOfItems);
 		runTest("Stack", stack, numberOfItems);
+		runTest("Guava ArrayList", guavaArrayList, numberOfItems);
+		runTest("Guava LinkedList", guavaLinkedList, numberOfItems);
 	}
 
 	private void runTest(String name, List<String> list, int numberOfItems) {

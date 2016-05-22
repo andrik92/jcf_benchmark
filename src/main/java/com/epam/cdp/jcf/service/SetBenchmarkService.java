@@ -1,126 +1,54 @@
 package com.epam.cdp.jcf.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
-import java.util.Vector;
+import java.util.TreeSet;
 
 import com.epam.cdp.jcf.model.Benchmark;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.Sets;
+import com.google.common.collect.TreeMultiset;
 
 public class SetBenchmarkService extends CollectionBenchmarkService{
 
-	private void addToTop(List<String> list) {
-		long startTime = System.nanoTime();
-
-		for (int i = 0; i < num; i++) {
-			list.add(0, String.format(pattern, i));
-		}
-
-		long executionTime = System.nanoTime() - startTime;
-
-		updateRezultTotalMap("addToTop", executionTime);
-	}
-
-	private void addToMiddle(List<String> list) {
-		long startTime = System.nanoTime();
-
-		for (int i = 0; i < num; i++) {
-			list.add(i / 2, String.format(pattern, i));
-		}
-
-		long executionTime = System.nanoTime() - startTime;
-
-		updateRezultTotalMap("addToMiddle", executionTime);
-		
-	}
-
-	private void getByIndex(List<String> list) {
-		long startTime = System.nanoTime();
-
-		for (int i = 0; i < num; i++) {
-			list.get(i);
-		}
-
-		long executionTime = System.nanoTime() - startTime;
-
-		updateRezultTotalMap("getByIndex", executionTime);
-	}
-
-	private void removeFromTopByIndex(List<String> list) {
-		long startTime = System.nanoTime();
-		for (int i = 0; i < num; i++) {
-			list.remove(0);
-		}
-		long executionTime = System.nanoTime() - startTime;
-
-		updateRezultTotalMap("removeFromTopByIndex", executionTime);
-	}
-
-	private void removeFromEndByIndex(List<String> list) {
-		long startTime = System.nanoTime();
-		for (int i = num; i > 0; i--) {
-			list.remove(i - 1);
-		}
-		long executionTime = System.nanoTime() - startTime;
-
-		updateRezultTotalMap("removeFromEndByIndex", executionTime);
-	}
-
-	private void removeFromMiddleByIndex(List<String> list) {
-		long startTime = System.nanoTime();
-
-		for (int i = 0; i < num; i++) {
-			list.remove((num - i) / 2);
-		}
-
-		long executionTime = System.nanoTime() - startTime;
-
-		updateRezultTotalMap("removeFromMiddleByIndex", executionTime);
-	}
-
 	public void runBenchmarkTest(int numberOfItems) {
-		List<String> arrayList = new ArrayList<String>();
-		List<String> arrayListWithInitSize = new ArrayList<String>(numberOfItems);
-		List<String> linkedList = new LinkedList<String>();
-		List<String> vector = new Vector<String>();
-		List<String> vectorWithInitSize = new Vector<String>(numberOfItems);
-		List<String> stack = new Stack<String>();
-
-		runTest("ArrayList", arrayList, numberOfItems);
-		runTest("ArrayList with init size", arrayListWithInitSize, numberOfItems);
-		runTest("LinkedList", linkedList, numberOfItems);
-		runTest("Vektor", vector, numberOfItems);
-		runTest("Vektor with init size", vectorWithInitSize, numberOfItems);
-		runTest("Stack", stack, numberOfItems);
+		Set<String> hashSet = new HashSet<String>();
+		Set<String> hashSetWithInitSize = new HashSet<String>(numberOfItems);
+		Set<String> treeSet = new TreeSet<String>();
+		Set<String> linkedHashSet = new LinkedHashSet<String>();
+		Set<String> linkedHashSetWithInitSize = new LinkedHashSet<String>(numberOfItems);
+		
+		Multiset<String> hashMultiSet = HashMultiset.create();
+		Multiset<String> hashMultiSetWithInitSize = HashMultiset.create(numberOfItems);
+		Multiset<String> treeMultiSet = TreeMultiset.create();
+		Set<String> guavaHashSet = Sets.newHashSet();
+		
+		runTest("HashSet", hashSet, numberOfItems);
+		runTest("HashSet with init size", hashSetWithInitSize, numberOfItems);
+		runTest("TreeSet", treeSet, numberOfItems);
+		runTest("LinkedHashSet", linkedHashSet, numberOfItems);
+		runTest("LinkedHashSet with init size", linkedHashSetWithInitSize, numberOfItems);
+		runTest("HashMultiset", hashMultiSet, numberOfItems);
+		runTest("HashMultiset with init size", hashMultiSetWithInitSize, numberOfItems);
+		runTest("TreeMultiset", treeMultiSet, numberOfItems);
+		runTest("Guava HashSet", guavaHashSet, numberOfItems);
 	}
 
-	private void runTest(String name, List<String> list, int numberOfItems) {
+	private void runTest(String name, Collection<String> set, int numberOfItems) {
 		this.num = numberOfItems;
 
 		rezultTotalMap = new HashMap<String, Long>();
 		rezultTotalMemoryUsage = 0;
 
 		for (int i = 0; i < RUNS; i++) {
-	/*
-			add(list);
-			removeFromEndByIndex(list);
-			addToMiddle(list);
-			removeFromMiddleByIndex(list);
-			addToTop(list);
-			removeFromTopByIndex(list);
-			add(list);
-			Collections.shuffle(list);
-			sort(list);
-			getByIndex(list);
-			Collections.shuffle(list);
-			contains(list);
-			removeByObject(list);
-		*/
+			add(set);
+			contains(set);
+			removeByObject(set);
 		}
 
 		for (Map.Entry<String, Long> entry : rezultTotalMap.entrySet()) {
